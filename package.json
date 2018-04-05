@@ -1,7 +1,7 @@
 {
-  "name": "eth-net-intelligence-api",
-  "description": "Ethereum Network Intelligence API",
-  "version": "0.1.1",
+  "name": "net-intelligence-api",
+  "description": "GoChain Network Intelligence API",
+  "version": "0.1.0",
   "private": true,
   "main": "./app.js",
   "directories": {
@@ -24,24 +24,23 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/cubedro/eth-net-intelligence-api.git"
+    "url": "https://github.com/gochain-io/net-intelligence-api.git"
   },
-  "homepage": "https://github.com/cubedro/eth-net-intelligence-api",
+  "homepage": "https://github.com/gochain-io/net-intelligence-api",
   "bugs": {
-    "url": "https://github.com/cubedro/eth-net-intelligence-api/issues"
+    "url": "https://github.com/gochain-io/net-intelligence-api/issues"
   },
   "keywords": [
-    "ethereum",
+    "gochain",
     "network",
     "intelligence",
     "API"
   ],
-  "author": "ethdev.com",
+  "author": "gochain.io",
   "authors": [
     {
-      "name": "Marian Oancea",
-      "email": "marian@ethdev.com",
-      "url": "https://github.com/cubedro"
+      "name": "GoChain",
+      "url": "https://github.com/gochain-io"
     }
   ],
   "license": "LGPL-3.0"

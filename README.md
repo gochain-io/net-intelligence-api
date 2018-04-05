@@ -1,61 +1,47 @@
 GoChain Network Intelligence API
 ============
+[![CircleCI](https://circleci.com/gh/gochain-io/net-intelligence-api/tree/master.svg?style=svg)](https://circleci.com/gh/gochain-io/net-intelligence-api/tree/master)
 
 This is the backend service which runs along with GoChain and tracks the network status, fetches information through JSON-RPC and connects through WebSockets to [netstats](https://github.com/gochain-io/netstats) to feed information. For full install instructions please read the [wiki](https://github.com/ethereum/wiki/wiki/Network-Status).
 
 
 ## Prerequisite
-* eth, geth or pyethapp
+* gochain
 * node
 * npm
-
-
-## Installation on an Ubuntu EC2 Instance
-
-Fetch and run the build shell. This will install everything you need: latest ethereum - CLI from develop branch (you can choose between eth or geth), node.js, npm & pm2.
-
-```bash
-bash <(curl https://raw.githubusercontent.com/gochain-io/net-intelligence-api/master/bin/build.sh)
-```
-## Installation as docker container (optional)
-
-There is a `Dockerfile` in the root directory of the repository. Please read through the header of said file for
-instructions on how to build/run/setup. Configuration instructions below still apply.
+* docker
 
 ## Configuration
 
-Configure the app modifying [processes.json](/net-intelligence-api/blob/master/processes.json). Note that you have to modify the backup processes.json file located in `./bin/processes.json` (to allow you to set your env vars without being rewritten when updating).
+Configure the app modifying [app.json](/net-intelligence-api/blob/master/app.json).
 
 ```json
 "env":
 	{
-		"NODE_ENV"        : "production", // tell the client we're in production environment
-		"RPC_HOST"        : "localhost", // eth JSON-RPC host
-		"RPC_PORT"        : "8545", // eth JSON-RPC port
-		"LISTENING_PORT"  : "30303", // eth listening port (only used for display)
-		"INSTANCE_NAME"   : "", // whatever you wish to name your node
+		"NODE_ENV"        : "test", // tell the client we're in test environment
+		"RPC_HOST"        : "localhost", // gochain JSON-RPC host
+		"RPC_PORT"        : "8545", // gochain JSON-RPC port
+		"LISTENING_PORT"  : "30303", // gochain listening port (only used for display)
+		"INSTANCE_NAME"   : "mynode", // whatever you wish to name your node
 		"CONTACT_DETAILS" : "", // add your contact details here if you wish (email/skype)
-		"WS_SERVER"       : "wss://rpc.ethstats.net", // path to eth-netstats WebSockets api server
-		"WS_SECRET"       : "see http://forum.ethereum.org/discussion/2112/how-to-add-yourself-to-the-stats-dashboard-its-not-automatic", // WebSockets api server secret used for login
+		"WS_SERVER"       : "wss://testnet-stats.gochain.io", // path to netstats WebSockets api server
+		"WS_SECRET"       : "mysecret", // WebSockets api server secret used for login
 		"VERBOSITY"       : 2 // Set the verbosity (0 = silent, 1 = error, warn, 2 = error, warn, info, success, 3 = all logs)
 	}
 ```
 
-## Run
+## Run as Docker Container
 
-Run it using pm2:
+Build (optional):
 
-```bash
-cd ~/bin
-pm2 start processes.json
+```sh
+docker build -t gochain/net-intelligence-api:latest .
 ```
 
-## Updating
+Run:
 
-To update the API client use the following command:
-
-```bash
-~/bin/www/bin/update.sh
+```sh
+docker run -v <path to app.json>:/home/netintel/app.json gochain/net-intelligence-api:latest
 ```
 
-It will stop the current netstats client processes, automatically detect your ethereum implementation and version, update it to the latest develop build, update netstats client and reload the processes.
+*To connect to the localhost rpc of another container, just add: `--net=container:<node_container>`.
