@@ -11,7 +11,7 @@ RUN apt-get update &&\
 
 RUN adduser netintel
 
-ADD * /home/netintel/
+ADD . /home/netintel/
 
 RUN cd /home/netintel &&\
     npm install &&\
